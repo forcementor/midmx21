@@ -1,0 +1,1010 @@
+<!doctype html>
+<html lang="en">
+  <!-- version for VirtualDraamin2020 -->
+	<head>
+		<meta charset="utf-8">
+
+		<title>Exploring LWC Drag and Drop</title>
+
+		<meta name="description" content="VirtualDreamin 2020 LWC presentation">
+		<meta name="author" content="Don Robins">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/night.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- For Chalkboard -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!-- Overrides for styles -->
+		<style>
+
+			.reveal section img { background:none; border:none; box-shadow:none; }	
+
+			[data-role="drag-drop-target"], 
+			[data-role="drag-drop-source"] {
+				float: left;
+				width: 225px;
+				height: 195px;
+				margin: 0px;
+				padding: 0px;
+				text-align: center !important;
+				vertical-align: middle;
+				border: 3px dashed #ddd !important;
+				border-radius: 4px;
+			}
+
+		</style>
+
+
+		<style>
+			#content {
+				position: relative;
+			}
+			#content img {
+				position: absolute;
+				top: 5px;
+				right: 70px;
+			}
+
+						/*
+			#language-link { 
+				position: relative; 
+				z-index:10;
+			} 
+			#language-link a { 
+				position: absolute; 
+				top: 35px; 
+				right: 20px; 
+			} 
+			*/
+
+			#language-link { 
+				position: relative; 
+				z-index:10;
+			} 
+
+			#language-link img { 
+				z-index:10;
+				position: absolute; 
+				top: 35px; 
+				left: 20px; 
+			} 
+
+			body {
+				background: url('img/vd_background.png');
+				background-size: 100%;
+			}
+
+			.reveal section h6 {
+				font-size: 0.75em !important;
+			}
+
+		</style>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div id="content">
+			<img src="img/whitelogo.png" height="75px" width="200px"/>
+		</div>
+
+		<div id="language-link">
+			<!--
+			<a href="index_ja.html" target="_none">						
+				<img src="img/FlagJapan.png" height="15px" width="30px"/>
+			</a>
+			-->
+			<img src="img/FlagUS.png" height="15px" width="30px"/>
+		</div>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+			
+				<!-- data-background-size="contain" -->
+				<section data-background-image="img/vds1.png" data-transition="slow" >
+				</section>
+
+				<section data-background-image="img/vds2_1.png" data-transition="slow" >
+				</section>
+
+				<section data-background-image="img/vds2_2.png" data-transition="slow" >
+				</section>
+
+				<section data-background-image="img/vds3.png" data-transition="slow" >
+				</section>
+
+				<!-- 
+				<section data-transition="fade-in" data-transition="slow"  >
+					<h3>Exploring<br/>Drag and Drop<br/>with<br/>Lightning Web Components</h3>
+				</section>
+				-->
+
+				<section data-transition="fade-in fade-out" >
+					<h3>Get the Presentation link</h3>	
+					<img src="img/lwc_dnd_20qr.png"  style="border:none;" height="50%" width="50%" align="center" />
+					<div >
+						<h4>	
+							<a href="bit.ly/lwc_dnd">
+								<i>bit.ly/lwc_dnd</i>
+							</a>	
+						</h4>		
+					</div>
+				</section>
+
+				<section data-transition="fade-in" data-transition="slow"  >
+
+					<table>
+						<tr>
+							<td>
+								<a href="index_ja.html#/5" target="_none">						
+									<div style="color:Gray">日本語 <img src="img/FlagJapan.png" height="20px" width="35px"/> </div>
+									<br/>
+									bit.ly/lwc_dnd_ja
+								</a>
+							</td>
+							<td>
+								&nbsp;&nbsp;&nbsp;&nbsp;
+							</td>
+							<td>
+								<a href="#/5" target="_none">					
+									<div style="color:White">English <img src="img/FlagUS.png" height="20px" width="35px"/></div> 	
+									<br/>
+									bit.ly/lwc_dnd
+								</a>
+							</td>
+						</tr>
+					</table>
+
+				</section>
+
+
+				<section data-transition="slide" >
+					<h3>Don Robins</h3>
+					Technical Educator<br/>
+					8x Salesforce MVP<br/>
+					Salesforce Certified PDII<br/>
+					Salesforce Training Partner<br/>
+					Salesforce Certified Instructor<br/>
+					Author of Books, Posts, Articles, Trailhead<br/>
+					Pluralsight "Salesforce Play by Play" Producer<br/>
+				</section>
+
+				<section data-transition="slide-in fade-out" >
+					<h3>Topics</h3>
+					<span class="fragment fade-in-then-semi-out">Drag and Drop Use Cases</span><br/>
+					<span class="fragment fade-in-then-semi-out">What is Drag and Drop</span><br/>
+					<span class="fragment fade-in-then-semi-out">Drag and Drop Concepts</span><br/>
+					<span class="fragment fade-in-then-semi-out">Standard HTML with Visualforce</span><br/>
+					<span class="fragment fade-in-then-semi-out">Tightly vs Loosely Coupled LWCs</span><br/>
+					<span class="fragment fade-in-then-semi-out">Where to Learn More</span><br/>										
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h3>We Will <u>Not</u> Dig Into</h3>
+					<span class="fragment fade-in-then-semi-out">Full Drag and Drop JavaScript API</span><br/>
+					<span class="fragment fade-in-then-semi-out">Drag and Drop in Aura</span><br/>
+					<span class="fragment fade-in-then-semi-out">Drag and Drop in non-HTML Platforms </span><br/>
+					<span class="fragment fade-in-then-semi-out">Mobile and Gesture Based Drag and Drop</span><br/>
+				</section>
+
+				<!-- DRAG AND DROP USE CASES -->	
+				<section data-transition="fade-in fade-out" >
+					<h3>Salesforce Use Cases</h3>
+					<img src="img/dnd_kanban_sample.jpeg" /><br/>
+					Kanban
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h3>Salesforce Use Cases</h3>
+					<img src="img/dnd_map_sample.png" /><br/>
+					Mapping Locations
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h3>Salesforce Use Cases</h3>
+					<img src="img/dnd_files_sample.png" /><br/>
+					Uploading Files
+				</section>
+
+				<!-- WHAT IS DRAG AND DROP -->	
+				<section data-transition="fade-in fade-out" >
+					<h3>What is Drag and Drop?</h3>
+				</section>
+
+				<section data-transition="slide-in fade-out" >
+					<h3>drag and drop</h3>
+					<i>noun</i>
+					<p><i>a programmatic mechanism whereby a<br/>
+						user can select and move an element<br/>
+						to another area on the page<br/>
+					</i>
+					</p>	
+				</section>
+
+				<section data-transition="fade-in fade-out" 
+						 data-background-iframe="https://en.wikipedia.org/wiki/Drag_and_drop" 
+						 data-background-interactive >
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h3>Let's Break It Down</h3>
+					<span class="fragment fade-in-then-semi-out">User "Clicks" on a displayed element</span><br/>
+					<span class="fragment fade-in-then-semi-out">User "Drags" it across the screen</span><br/>
+					<span class="fragment fade-in-then-semi-out">User "Drops" it somewhere else on the screen</span><br/>
+					<span class="fragment fade-in-then-semi-out">The element appears at the new location</span><br/>
+					<span class="fragment fade-in-then-semi-out">Associated logic may affect data</span><br/>
+				</section>
+
+				<section data-transition="fade-in fade-out" > 
+					<table>
+						<tr>
+							<td>
+								<!-- Drag and Drop Sample -->
+								<div id="source-container" data-role="drag-drop-source">
+
+									<!-- Starting place for the image -->
+									<img id="case-image" 
+										draggable="true" 
+										width = "100%"
+										height = "165px"
+										src="https://www.kindpng.com/picc/m/420-4201774_manage-your-cases-and-matters-case-management-system.png" />
+
+								</div>
+							</td>
+							<td>
+								<div id="target-container" data-role="drag-drop-target">
+
+								</div>
+							</td>
+							<td>
+								<div id="another_target-container" data-role="drag-drop-target">
+
+								</div>
+							</td>
+						</tr>
+					</table>		
+				</section>	
+
+				<section data-transition="fade-in fade-out" >
+					<h3>How Does It Work in HTML?</h3>
+					<span class="fragment fade-in-then-semi-out">Movable Elements set as "Draggable"</span><br/>
+					<span class="fragment fade-in-then-semi-out">Container Elements set with Listeners</span><br/>
+					<span class="fragment fade-in-then-semi-out">Event Listeners bind to JavaScript Handlers</span><br/>
+					<span class="fragment fade-in-then-semi-out">Handlers set DTO Payload and Drop Effects</span><br/>
+					<span class="fragment fade-in-then-semi-out">Handlers manipulate the DOM and Data</span><br/>
+					<span class="fragment fade-in-then-semi-out">Only some Handlers are required</span><br/>
+				</section>
+			
+				<section data-transition="fade-in fade-out" >
+					<h3>Two Types of HTML Elements</h3>
+					<table width="100%">
+						<tr>
+							<td width="50%">
+								<div class="fragment fade-in-then-semi-out">
+									<h4><u>Draggable Element</u></h4>
+									<p><i>the selected element<br/>
+										being Dragged from<br/>
+										a source container<br/>
+										to a target container<br/>										
+										(ie. URL, Image, etc.)
+									</i></p>
+								</div>
+							</td>
+							<td width="50%">
+								<div class="fragment fade-in-then-semi-out">
+									<h4><u>Target Container</u></h4>
+								 	<p><i>a container element<br/>
+										the selected element can<br/>
+										be Dragged over and/or<br/>
+										Dropped into<br/>
+										(ie. Div, List, etc.)
+									</i>
+									</p>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</section>		
+
+				<section data-transition="fade-in fade-out" >
+					<h3>Each Type Has Its Own Events</h3>
+					<table width="100%">
+						<tr>
+							<td width="50%">
+								<div class="fragment fade-in">
+									<h4><u>Draggable Element</u></h4>
+									<span class="fragment fade-in-then-semi-out">DragStart*</span><br/>
+									<span class="fragment fade-in-then-semi-out">Drag</span><br/>
+									<span class="fragment fade-in-then-semi-out">DragEnd</span><br/>
+								</div>
+							</td>
+							<td width="50%">
+								<div class="fragment fade-in">
+									<h4><u>Target Container</u></h4>
+									<span class="fragment fade-in-then-semi-out">DragEnter*</span><br/>
+									<span class="fragment fade-in-then-semi-out">DragOver*</span><br/>
+									<span class="fragment fade-in-then-semi-out">DragLeave</span><br/>
+									<span class="fragment fade-in-then-semi-out">Drop*</span><br/>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<br/>
+					<h4 class="fragment fade-in"><i>There are often multiple Target Containers</i></h4>
+				</section>		
+
+				<section data-transition="slide-in fade-out" >
+					<h4><i>(Draggable Element)</i></h4>
+					<h3>The DragStart* event</h3>
+					<span class="fragment fade-in-then-semi-out">Fires when an element is first Dragged</span><br/>					
+					<span class="fragment fade-in-then-semi-out">Handling this event is REQUIRED</span><br/>					
+					<span class="fragment fade-in-then-semi-out">Captures the element Id of the Dragged Element</span><br/>					
+					<span class="fragment fade-in-then-semi-out">Captures the element Id of the Source Container</span><br/>					
+					<span class="fragment fade-in-then-semi-out">Loads the Data and Drop Effects in the Event DTO</span><br/>										
+					<span class="fragment fade-in-then-semi-out">Typically used to set the CSS presentation</span><br/>														
+				</section>
+
+				<section data-transition="slide-in fade-out" >
+					<h4><i>(Draggable Element)</i></h4>
+					<h3>The Drag event</h3>
+					<span class="fragment fade-in-then-semi-out">Fires as an element is being Dragged</span><br/>					
+					<span class="fragment fade-in-then-semi-out">Continues to fire every few hundred milliseconds</span><br/>					
+					<span class="fragment fade-in-then-semi-out">Handling this event is OPTIONAL</span><br/>					
+					<span class="fragment fade-in-then-semi-out">Typically used to affect the CSS presentation</span><br/>									
+				</section>
+
+				<section data-transition="slide-in fade-out" >
+					<h4><i>(Draggable Element)</i></h4>
+					<h3>The DragEnd event</h3>
+					<span class="fragment fade-in-then-semi-out">Fires as a Drag operation ends</span><br/>					
+					<span class="fragment fade-in-then-semi-out">Handling this event is OPTIONAL</span><br/>					
+					<span class="fragment fade-in-then-semi-out">Typically used to reset the CSS presentation</span><br/>									
+				</section>
+
+				<section data-transition="slide-in fade-out" >
+					<h4><i>(Target Container)</i></h4>
+					<h3>The DragEnter* event</h3>
+					<span class="fragment fade-in-then-semi-out">Fires as item enters a valid Drop  target</span><br/>					
+					<span class="fragment fade-in-then-semi-out">Handling this event is REQUIRED</span><br/>					
+					<span class="fragment fade-in-then-semi-out">The handler MUST call preventDefault()</span><br/>									
+					<span class="fragment fade-in-then-semi-out">Typically used to reset the CSS presentation</span><br/>									
+				</section>
+
+				<section data-transition="slide-in fade-out" >
+					<h4><i>(Target Container)</i></h4>
+					<h3>The DragOver* event</h3>
+					<span class="fragment fade-in-then-semi-out">Fires as item is Dragged over valid Drop target</span><br/>					
+					<span class="fragment fade-in-then-semi-out">Continues to fire every few hundred milliseconds</span><br/>					
+					<span class="fragment fade-in-then-semi-out">Handling this event is REQUIRED</span><br/>					
+					<spanh8 class="fragment fade-in-then-semi-out">The handler SHOULD call preventDefault()</span><br/>									
+					<span class="fragment fade-in-then-semi-out">Typically used to reset the CSS presentation</span><br/>									
+				</section>
+
+				<section data-transition="slide-in fade-out" >
+					<h4><i>(Target Container)</i></h4>
+					<h3>The DragLeave event</h3>
+					<span class="fragment fade-in-then-semi-out">Fires as item leaves a valid Drop target</span><br/>					
+					<span class="fragment fade-in-then-semi-out">Handling this event is OPTIONAL</span><br/>					
+					<span class="fragment fade-in-then-semi-out">Typically used to reset the CSS presentation</span><br/>									
+				</section>
+
+				<section data-transition="slide-in fade-out" >
+					<h4><i>(Target Container)</i></h4>
+					<h3>The Drop* event</h3>
+					<span class="fragment fade-in-then-semi-out">Fires as item is dropped on a valid Drop target</span><br/>					
+					<span class="fragment fade-in-then-semi-out">Handling this event is REQUIRED</span><br/>					
+					<span class="fragment fade-in-then-semi-out">The handler SHOULD call preventDefault()</span><br/>									
+					<span class="fragment fade-in-then-semi-out">Processes DOM changes to the Dragged element</span><br/>									
+					<span class="fragment fade-in-then-semi-out">Processes any required data or logic</span><br/>									
+					<span class="fragment fade-in-then-semi-out">Typically used to reset the CSS presentation</span><br/>									
+				</section>
+
+				<!-- SALESFORCE -->	
+				<section data-transition="fade-in fade-out" >
+					<h3>How do you implement<br/>
+						Standard HTML<br/>
+						Drag and Drop<br/>
+						in Salesforce?</h3>
+				</section>			
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Implemening Standard HTML <br/>
+						Drag and Drop in Visualforce</h4> 
+					<img src="img/CasePicker1.png" width="60%" />	
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h3>Demo Visualforce...</h3> 
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>HTML Multiple Containers</h4> 
+					<img src="img/htmlDivs.png" width="60%"/>
+					<br/>
+					<span>Declare collection of Div Containers</span>
+				</section>
+
+				<!-- SLIDE 30 -->
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Draggable Element<br/>
+						(in the 'New' source container)		
+					</h4> 
+					<img src="img/html1callout.png" width="40%" />
+					</br>
+					<span>Set Source Container and Draggable Item</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Potential Drop Target Container<br/>
+						(the 'Working' container)</h4> 
+					<img src="img/html2callout.png" width="60%" />	
+					<br/>
+					<span>Set Container as Drop Target</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Potential Drop Target Container<br/>
+						(the 'Escalated' container)</h4> 
+					<img src="img/html3callout.png" width="60%" />	
+					<br/>
+					<span>Set another Container as Drop Target</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Setting Up The Event Listeners</h4> 
+					<img src="img/htmlHandlerJSCallout.png" width="60%" />	
+					<br/>
+					<span>Use selectors to fetch elements and add Listeners</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>DragStart Event Handler</h4> 
+					<img height="75%" width="75%" src="img/htmlDragStartJS.png" />	
+					<br/>
+					<span>Capture Item and Container Ids</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Drop Event Handler</h4> 
+					<img src="img/htmlDropJSCallout.png" width="60%" />	
+					<br/>
+					<span>Fetch Item Id and reparent to Target Container</span>
+				</section>
+
+				<section data-transition="slide-in fade-out"  >
+					<h3>How do you implement<br/>
+						HTML Drag and Drop in<br/>
+						Lightning Web Components
+					</h3> 
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>LWC vs Standard HTML Differences</h4>
+					<span class="fragment fade-in-then-semi-out">Both Manipulate the DOM but Differently...</span><br/>
+					<span class="fragment fade-in-then-semi-out">Use LWC to broker the events</span><br/>
+					<span class="fragment fade-in-then-semi-out">Abandon Event DTO and Drop Effects...</span><br/>					
+					<span class="fragment fade-in-then-semi-out">Use Custom Event and Data Payload Instead</span><br/>
+					<span class="fragment fade-in-then-semi-out">Facilitates Data Manipulation...</span><br/>
+					<span class="fragment fade-in-then-semi-out">Use Data Driven Reactive Rendering</span><br/>
+					<span class="fragment fade-in-then-semi-out"><i>(LWC avoids standard DOM Manipulation!)</i></span><br/>
+				</section>
+
+				<section data-transition="slide-in fade-out" >
+					<h4>Key Points</h4>
+					<h6>
+						<i>
+						<p class="fragment fade-in-then-semi-out">
+							LWCs declare and handle Drag and Drop<br/>
+							events and broker them with Custom Events.
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+							These messages travel up the Component<br/>
+							Hierarchy to a top level Master Component.
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+							The Master Component fetches and updates<br/>
+							all data bound to tracked properties.
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+							Changes to tracked properties trigger<br/>
+							reactive rerendering back down through<br/>
+							the component hierarchy refreshing the UI.
+						</p>
+					</i>
+				</h6>
+
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Two Architectural Approaches</h4>
+					<table width="100%">
+						<tr>
+							<td width="50%">
+								<div class="fragment fade-in-then-semi-out">
+									<h4><u>Tightly Coupled</u></h4>
+									<h8><p><i>components can<br/>
+										be dragged to and from<br/>
+										source and target container<br/>
+										components										
+									</i></p></h8>
+								</div>
+							</td>
+							<td width="50%">
+								<div class="fragment fade-in-then-semi-out">
+									<h4><u>Loosely Coupled</u></h4>
+								 	<h8><p><i>container components<br/>
+										added to a Flexipage<br/>
+										by an App Builder and<br/>
+										communicate with PubSub<br/>
+									</i>
+									</p></h8>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</section>		
+
+				<section data-transition="slide-in fade-out"  >
+					<h4>Tightly Coupled Components</h4> 
+					<img src="img/CasePicker2.png" />	
+				</section>
+
+				<section data-transition="slide-in fade-out" >
+					<h4>Loosley Coupled Components</h4> 
+					<img src="img/CasePicker3.png" width="80%"/>	
+				</section>
+
+				<section data-transition="slide-in fade-out" >
+					<h3>Demo LWC...</h3> 
+				</section>
+
+				<!-- DRAGGABLE COMPONENT -->
+				<section data-transition="fade-in fade-out" >
+					<h4>Draggable Component: Markup<br/>
+						(caseItem.html)
+					</h4> 
+					<img src="img/case-item-HTMLCallout.png" draggable="false" width="50%"/>
+					<br/>
+					<span>Set Item as Draggable and wire its events</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Draggable Component: Style<br/>
+						(caseItem.css) 
+					</h4> 
+					<img src="img/case-item-CSSCallout.png" draggable="false" width="40%"/>
+					<br/>
+					<span>Define the Item Component's Drag style</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Draggable Component: Module<br/>
+						(caseItem.js)</h4> 
+					</h4> 
+					<img src="img/case-item-JS-dragstartCallout.png"  draggable="false" width="60%" />
+					<br/>
+					<span>Set Drag style and broker the Drag event</span>
+				</section>
+
+				<!-- CONTAINER COMPONENT -->
+				<section data-transition="fade-in fade-out" >
+					<h4>Container Component: Markup<br/>
+						(caseList.html)
+					</h4> 
+					<img src="img/case-list-HTMLCallout.png" width="60%"/>
+					<br/>
+					<span>Wire up both Container and Item events</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Container Component: Style<br/>
+						(caseList.css)
+					</h4> 
+					<img src="img/case-list-CSS.png" width="40%"/>
+					<br/>
+					<span>Define the Container's DragOver style</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Container Component: Module<br/>
+						(caseList.js)
+					</h4> 
+					<img src="img/case-list-js-OverLeaveCallout.png" width="60%" />
+					<br/>
+					<span>Handle events that change Container style</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Container Component: Module<br/>
+						(caseList.js)
+					</h4> 
+					<img src="img/case-list-js-AddRemoveCallout.png" width="80%" />
+					<br/>
+					<span>Use helper functions to set and reset Styles</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Container Component: Module<br/>
+						(caseList.js)
+					</h4> 
+					<img src="img/case-list-JS-itemdrag.png" width="80%" />
+					<br/>
+					<span>Broker the Item's DragStart event</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Container Component: Module<br/>
+						(caseList.js)
+					</h4> 
+					<img src="img/case-list-JS-dropCallout.png" width="80%" />
+					<br/>
+					<span>Broker the Container's Drop event</span>
+				</section>
+
+				<!-- MASTER COMPONENT -->
+				<section data-transition="fade-in fade-out" >
+					<h4>Master Component: Markup<br/>
+						(casePicker.html)
+					</h4> 
+					<img src="img/case-picker-HTMLCallout.png"  width="70%"/>
+					<br/>
+					<span>Wire the Container events to the Master</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Master Component: Module<br/>
+						(casePicker.js)
+					</h4> 
+					<img src="img/case-picker-JS-header.png" width="60%" />
+					<br/>
+					<span>Declare Apex and RecordUI imports and lists</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Master Component: Module<br/>
+						(casePicker.js)
+					</h4> 
+					<img src="img/case-picker-JS-datawire.png" width="60%" />
+					<br/>
+					<span>Use an @wire function to fetch and filter data lists</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Master Component: Module<br/>
+						(casePicker.js)
+					</h4> 
+					<img src="img/case-picker-JS-update.png" width="60%" />
+					<br/>
+					<span>Validate, Update and Refresh data on Drop</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h3>Key Points</h3>
+					<h8 class="fragment fade-in-then-semi-out">Understand standard drag and drop events</h8><br/>					
+					<h8 class="fragment fade-in-then-semi-out">Don’t fight the framework</h8><br/>
+					<h8 class="fragment fade-in-then-semi-out">Leverage custom events</h8><br/>										
+					<h8 class="fragment fade-in-then-semi-out">Leverage data capabilities</h8><br/>										
+					<h8 class="fragment fade-in-then-semi-out">Leverage reactive rendering</h8><br/>					
+					<h8 class="fragment fade-in-then-semi-out">Use Event Handlers to change style</h8><br/>
+					<h8 class="fragment fade-in-then-semi-out">Use a Master Component for Data Processing</h8><br/>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h3>Where Can I Learn More?</h3>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Download and Dissect the Reference App</h4>
+					<table>
+						<tr>
+							<td width="70%">
+								<a href="https://github.com/forcementor/lwc-dnd-demos" target="_none"> 						
+									<img src="img/GitRepo.png" style="vertical-align:middle;" />
+								</a>
+							</td>
+							<td width="30%" >
+								<img src="img/GitDemo_QR.png" style="vertical-align:middle" />
+							</td>
+						</tr>
+					</table>	
+					<br/>							
+					<span>https://github.com/forcementor/lwc-dnd-demos</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Download and Dissect the eBikes App </h4>
+					<a href="https://github.com/trailheadapps/ebikes-lwc" target="_none"> 						
+						<img src="img/eBikes.png" style="border:none;" width="60%"/>
+					</a>							
+					<br/>
+					<span>https://github.com/trailheadapps/ebikes-lwc</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Learn Standard HTML Fundamentals</h4>
+					<a href="https://pluralsight.pxf.io/C0114" target="_none"> 						
+						<img src="img/craigCourse.png" style="border:none;" width="60%"/>
+					</a>							
+					<br/>
+					<span>https://pluralsight.pxf.io/C0114</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Learn about Short-Stopping Handler Events</h4>					
+					<a href="https://medium.com/@jacobwarduk/how-to-correctly-use-preventdefault-stoppropagation-or-return-false-on-events-6c4e3f31aedb" target="_none"> 
+						<img src="img/MediumWard.png" style="border:none;" width="60%"/>
+					</a>
+					<br/>	
+					<span>Medium.com</span>					
+				</section>
+
+				<section data-transition="fade-in fade-out"  >
+					<h4>Read about the Drag and Drop HTML standard </h4>
+					<a href="https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API" target="_none"> 
+						<img src="img/MDNContent.png" style="border:none;" width="60%"/>
+					</a>
+					<br/>	
+					<span>Mozilla Developer Network</span>
+				</section>
+				
+				<section data-transition="fade-in fade-out" >
+					<h4>Watch this LWC Primer</h4>
+					<a href="https://pluralsight.pxf.io/C0066" target="_none"> 						
+						<img src="img/ChuckPbP.png" style="border:none;" width="60%"/>
+					</a>
+					<br/>							
+					<span>https://pluralsight.pxf.io/C0066</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Visit the Salesforce Play By Play Gallery</h4>
+					<table>
+						<tr>
+							<td width="70%">
+								<a href="https://sfplaybyplay.secure.force.com" target="_none"> 						
+									<img src="img/PbPSiteCallout.png" style="vertical-align:middle;" />
+								</a>
+							</td>
+							<td width="30%" >
+								<img src="img/PbP_QR.png" style="vertical-align:middle" />
+							</td>
+						</tr>
+					</table>		
+					<span>www.sfplaybyplay.com</span>
+				</section>
+
+				<section data-transition="fade-in fade-out" >
+					<h4>Search or Filter on Topic, Author, Trailhead Class</h4>
+					<a href="https://sfplaybyplay.secure.force.com" target="_none"> 						
+						<img src="img/PbPTilesCallout.png" width="50%"/>
+					</a>
+					<br/>							
+					<span>www.sfplaybyplay.com</span>
+				</section>
+
+				<section data-background-image="img/vds4.png" data-transition="slow" >
+				</section>
+
+				<section style="text-align: left;"  data-transition="slow">
+					<h4 style="color:White">Next steps after the survey:</h4>
+					<ul style="color:White">
+						<li>Visit our sponsors!</li>
+						<li>Follow me @donrobins and on Pluralsight.com</li>
+						<li>Keep on learning and share with your Ohana</li>
+					</ul>
+					<br/>
+					<p style="color:White">
+						This presentation is on Github here:
+						<img src="img/lwc_dnd_20qr.png"  style="border:none;" height="25%" width="25%" align="right" />
+					</p>
+					<div style="font-size: 25px;">
+						<a href="https://bit.ly/lwc_dnd">
+							<i>bit.ly/lwc_dnd</i>
+						</a>
+					</div>
+				</section>
+
+				<section  data-background-image="img/vds5.png" data-transition="slow" >
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c/t',
+				autoPlayMedia: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/chalkboard/chalkboard.js' },
+				],
+
+				chalkboard: { 
+					// optionally load pre-recorded chalkboard drawing from file
+					//src: "chalkboard.json",
+				},
+
+				keyboard: {
+					67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed
+					66: function() { RevealChalkboard.toggleChalkboard() },	// toggle chalkboard when 'b' is pressed
+					46: function() { RevealChalkboard.clear() },	// clear chalkboard when 'DEL' is pressed
+					 8: function() { RevealChalkboard.reset() },	// reset chalkboard data on current slide when 'BACKSPACE' is pressed
+					68: function() { RevealChalkboard.download() },	// downlad recorded chalkboard drawing when 'd' is pressed
+					88: function() { RevealChalkboard.colorNext() },	// cycle colors forward when 'x' is pressed
+					89: function() { RevealChalkboard.colorPrev() },	// cycle colors backward when 'y' is pressed
+				},
+
+			});
+
+		</script>
+
+        <script>
+        
+			//Placeholder of the DRAG SOURCE parent container id
+			var sourceContainerId;
+			
+			var cancel = function(e) {
+				if (e.preventDefault) e.preventDefault();
+				if (e.stopPropagation) e.stopPropagation();
+				return false;
+			};
+
+			var dragStart = function(e) {
+				console.log('source: dragstart');
+				
+				//******************************************************************************	
+				//KEY POINTS
+				//******************************************************************************	
+				
+				//Load the DataTransfer object on the event with the element id
+				try {
+					e.dataTransfer.setData('text/plain', e.target.id);
+				} catch (ex) {
+					//For browsers that don't support text/plain
+					e.dataTransfer.setData('Text', e.target.id);
+				}
+				
+				//Capture the DRAG SOURCE parent container element
+				sourceContainerId = this.parentElement.id;
+				
+			};
+			
+			var drag = function(e) {
+				console.log('source: drag');
+			};
+
+			var dragEnd = function(e) {
+				console.log('source: dragend');
+			};
+
+			//==========================
+			//Target container events	
+			//==========================
+
+			//Event Handing is Required to drop
+			var dragEnter = function(e) {
+				cancel(e);  //Not required
+				console.log('target: dragenter');
+			};
+			
+			//Event Handing is Required to drop
+			var dragOver = function(e) {
+				cancel(e); // ** MUST CANCEL
+				console.log('target: dragover');
+			};
+			
+			//Event Handing is Optional
+			var dragLeave = function(e) {
+				console.log('target: dragleave');
+			};
+			
+			//Event Handing is Required to drop
+			var dropped = function(e) {
+				var id;
+				
+				console.log('target: drop');
+				
+				//******************************************************************************	
+				//KEY POINTS
+				//******************************************************************************	
+				
+				//Make sure the drop is on a different container than the original container 
+				//for the DRAG SOURCE
+				if (this.id !== sourceContainerId) {
+					
+					cancel(e);
+					
+					//Fetch the DRAG SOURCE element id from the event's DataTransfer object
+					try {
+						id = e.dataTransfer.getData('text/plain');
+					} catch (ex) {
+						//For browsers that don't support text/plain
+						id = e.dataTransfer.getData('Text');
+					}
+					
+					//Re-assign the DRAG SOURCE element to its new DROP TARGET parent element in the DOM
+					//which will rerender it in the new container
+					e.target.appendChild(document.querySelector('#' + id));
+					
+				}
+			};
+		
+			
+			//******************************************************************************	
+			//KEY POINTS
+			//******************************************************************************	
+			
+			//Add the event handlers for elements selected by data-role
+			var targets = document.querySelectorAll('[data-role="drag-drop-target"]');
+			[].forEach.call(targets, function(target) {
+				
+				//The DROP TARGET gets a listener for the drop event where
+				//the DRAG SOURCE Id will be fetched from the event's DataTransfer payload
+				//and the element will be re-parented to the DROP TARGET element
+				target.addEventListener('drop', dropped, false);
+				
+				target.addEventListener('dragenter', dragEnter, false);
+				target.addEventListener('dragover', dragOver, false);
+				target.addEventListener('dragleave', dragLeave, false);
+			});
+			
+			var sources = document.querySelectorAll('[draggable="true"]');
+			[].forEach.call(sources, function(source) {
+	
+				//The DRAG SOURCE gets a listener for the dragstart event where
+				//its element Id will be loaded into the event's DataTransfer payload
+				source.addEventListener('dragstart', dragStart, false);
+	
+				source.addEventListener('drag', drag, false);
+				source.addEventListener('dragend', dragEnd, false);
+			});            
+		</script>
+	
+
+
+	</body>
+</html>
