@@ -1,10 +1,10 @@
-# lwc_dnd_20
-Exploring Drag and Drop with Lightning Web Components
-
+# midmx21
+Commencement keynote
 <hr/>
 <h3>
 Notes for development in VSCode
 </h3>
+
 - Launch the local server on port 3000:<br/>
 node serve.js
 
