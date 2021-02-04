@@ -4,9 +4,9 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Exploring LWC Drag and Drop</title>
+		<title>Salesforce Class Graduation</title>
 
-		<meta name="description" content="VirtualDreamin 2020 LWC presentation">
+		<meta name="description" content="Salesforce Class Graduation">
 		<meta name="author" content="Don Robins">
 
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -15,6 +15,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.css">
+		
+		<!-- DBR CSS Changed theme to Salesforce style 
+		<link rel="stylesheet" href="css/theme/sky2.css" id="theme">-->
 		<link rel="stylesheet" href="css/theme/night.css" id="theme">
 
 		<!-- Theme used for syntax highlighting of code -->
@@ -32,7 +35,7 @@
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
 
-		<!-- Overrides for styles -->
+		<!-- DBR Overrides for styles -->
 		<style>
 
 			.reveal section img { background:none; border:none; box-shadow:none; }	
@@ -52,15 +55,16 @@
 
 		</style>
 
-
 		<style>
 			#content {
 				position: relative;
 			}
+			
+			/*  icon placement */
 			#content img {
 				position: absolute;
-				top: 5px;
-				right: 70px;
+				top: 15px;
+				right: 20px;
 			}
 
 						/*
@@ -87,14 +91,22 @@
 				left: 20px; 
 			} 
 
+			/* DBR Overrides for styles */
 			body {
-				background: url('img/vd_background.png');
+
+				/* background: url('img/sfblue.png'); */
+				background: url('img/nightbackground.png'); 				
 				background-size: 100%;
 			}
 
 			.reveal section h6 {
 				font-size: 0.75em !important;
 			}
+
+			.reveal .title-custom {
+				vertical-align: top;
+				top: 0 !important;
+			}  
 
 		</style>
 
@@ -106,16 +118,7 @@
 	<body>
 
 		<div id="content">
-			<img src="img/whitelogo.png" height="75px" width="200px"/>
-		</div>
-
-		<div id="language-link">
-			<!--
-			<a href="index_ja.html" target="_none">						
-				<img src="img/FlagJapan.png" height="15px" width="30px"/>
-			</a>
-			-->
-			<img src="img/FlagUS.png" height="15px" width="30px"/>
+			<img src="img/midmxLogo.jpeg" height="150px" width="150px"/>
 		</div>
 
 		<div class="reveal">
@@ -123,24 +126,21 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 			
-				<!-- data-background-size="contain" -->
-				<section data-background-image="img/vds1.png" data-transition="slow" >
-				</section>
-
-				<section data-background-image="img/vds2_1.png" data-transition="slow" >
-				</section>
-
-				<section data-background-image="img/vds2_2.png" data-transition="slow" >
-				</section>
-
-				<section data-background-image="img/vds3.png" data-transition="slow" >
-				</section>
-
-				<!-- 
-				<section data-transition="fade-in" data-transition="slow"  >
-					<h3>Exploring<br/>Drag and Drop<br/>with<br/>Lightning Web Components</h3>
+				<!-- data-background-size="contain" 
+				<section data-background-image="img/Graduation3.png" data-transition="slow" height="50%" width="50%" >
 				</section>
 				-->
+
+				<section data-transition="fade-in" data-transition="slow"  >
+					<h3>Salesforce Class Graduation</h3>
+					<h4>Winter - Salesforce Admin Group<br/>
+						Merida Mexico
+					</h4>
+					<h6><i>Saturday February 6th</i></h4>
+
+					<br/>						
+					<h3><i><strong>`Opportunities For Success`</strong></i></h3>
+				</section>
 
 				<section data-transition="fade-in fade-out" >
 					<h3>Get the Presentation link</h3>	
@@ -154,43 +154,22 @@
 					</div>
 				</section>
 
-				<section data-transition="fade-in" data-transition="slow"  >
-
-					<table>
-						<tr>
-							<td>
-								<a href="index_ja.html#/5" target="_none">						
-									<div style="color:Gray">日本語 <img src="img/FlagJapan.png" height="20px" width="35px"/> </div>
-									<br/>
-									bit.ly/lwc_dnd_ja
-								</a>
-							</td>
-							<td>
-								&nbsp;&nbsp;&nbsp;&nbsp;
-							</td>
-							<td>
-								<a href="#/5" target="_none">					
-									<div style="color:White">English <img src="img/FlagUS.png" height="20px" width="35px"/></div> 	
-									<br/>
-									bit.ly/lwc_dnd
-								</a>
-							</td>
-						</tr>
-					</table>
-
-				</section>
-
-
 				<section data-transition="slide" >
 					<h3>Don Robins</h3>
 					Technical Educator<br/>
-					8x Salesforce MVP<br/>
+					9x Salesforce MVP<br/>
 					Salesforce Certified PDII<br/>
 					Salesforce Training Partner<br/>
 					Salesforce Certified Instructor<br/>
 					Author of Books, Posts, Articles, Trailhead<br/>
 					Pluralsight "Salesforce Play by Play" Producer<br/>
 				</section>
+
+				<section data-background-image="img/oppmap.png" data-transition="slide" data-background-size="6	5%">
+					<h3>Salesforce Opportunity Map</h3>
+					<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+				</section>
+
 
 				<section data-transition="slide-in fade-out" >
 					<h3>Topics</h3>
